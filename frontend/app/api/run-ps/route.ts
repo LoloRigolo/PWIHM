@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import path from "path";
+import path from "node:path";
 import { buildArgsFromParams } from "@/lib/buildArgs";
 import { runPowerShell } from "@/lib/powershell";
 
@@ -27,6 +27,8 @@ export async function POST(req: Request) {
       "-File",
       file,
       ...buildArgsFromParams(json.params || {}),
+      "-ScriptLoc",
+      baseDir
     ];
 
     const { code, stdout, stderr } = await runPowerShell({ exe: psExe, args: psArgs, timeoutMs });
