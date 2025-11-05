@@ -1,2 +1,116 @@
-# PowerShellWebIHM
-run powershell script from a web interface
+# PWIHM — PowerShell Web IHM
+
+A lightweight and modern **web interface for running PowerShell scripts** remotely or locally, built with **Next.js 14**, **TypeScript**, and **shadcn/ui**.
+
+> Repository: [https://github.com/LoloRigolo/PowerShellWebIHM.git](https://github.com/LoloRigolo/PowerShellWebIHM.git)
+
+---
+
+## Features
+
+- Interactive web UI with shadcn components (cards, forms, badges, etc.)
+- Execute PowerShell scripts from a secure backend
+- Dynamic parameters: text, number, select, checkbox
+- Real-time log display
+- Environment-based configuration via `.env.local`
+- Modular front-end architecture with `app/` router
+
+---
+
+## Tech Stack
+
+| Layer     | Technology                                         |
+| --------- | -------------------------------------------------- |
+| Frontend  | Next.js 14 + TypeScript + TailwindCSS + shadcn/ui  |
+| Backend   | Next.js API Routes (Node runtime)                  |
+| Scripting | PowerShell (.ps1) execution via Node child_process |
+| Styling   | TailwindCSS                                        |
+| Icons     | lucide-react                                       |
+
+---
+
+## Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/LoloRigolo/PowerShellWebIHM.git
+cd PowerShellWebIHM
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure environment variables
+
+Create a `.env.local` file at the root:
+
+```
+POWERSHELL_EXE_PATH=C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+POWERSHELL_SCRIPTS_DIR=C:\<FolderToRepo>\PowerShellWebIHM\scriptspowershell\
+```
+
+### 4. Run the development server
+
+```bash
+npm run dev
+```
+
+Then open [http://localhost:3000](http://localhost:3000)
+
+---
+
+## Folder Structure
+
+```
+app/
+ ├─ api/
+ │   └─ run-ps/
+ │       └─ route.ts     → API to run PowerShell scripts
+ ├─ scripts/
+ │   └─ [slug]/page.tsx  → Script execution page
+ ├─ page.tsx             → Home page with scripts grid
+components/
+ ├─ ScriptsGrid.tsx
+ ├─ ui/…                 → shadcn/ui components
+lib/
+ └─ scripts.ts           → Script definitions & parameters
+```
+
+---
+
+## Example PowerShell Scripts
+
+### `hello.ps1`
+
+```powershell
+Write-Host "Hello World from PowerShell!"
+```
+
+### `backup.ps1`
+
+```powershell
+param(
+  [Parameter(Mandatory=$true)][string]$path,
+  [ValidateSet('full','diff','inc')][string]$level = 'full',
+  [switch]$compress
+)
+Write-Host "Backup path=$path level=$level compress=$compress"
+```
+
+---
+
+## Security Notes
+
+- The API should be protected behind authentication (not yet included)
+- Only whitelisted scripts in `lib/scripts.ts` should be exposed
+- Avoid user-supplied file paths
+
+---
+
+## License
+
+MIT © [Lorenzo Cesana-Rale](https://github.com/LoloRigolo)
