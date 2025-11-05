@@ -10,8 +10,8 @@ export function ScriptsGrid() {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {SCRIPTS.map((s) => (
-                <Link href={`/scripts/${s.slug}`}>
-                    <Card key={s.slug} className="hover:shadow-lg transition-shadow">
+                <Link key={s.slug} href={`/scripts/${s.slug}`}>
+                    <Card className="hover:shadow-lg transition-shadow">
                         <CardContent className="flex flex-col gap-3 p-6 justify-between min-h-[220px]">
                             <div className="space-y-2">
                                 <div className="flex items-center gap-2 flex-wrap">
