@@ -30,13 +30,20 @@ export function ParamsForm({
                             {p.required && <span className="text-destructive"> *</span>}
                         </Label>
 
-                        {(p.type === "text" || p.type === "number") && (
+                        {(p.type === "text" || p.type === "number" || p.type === "password") && (
                             <Input
                                 id={p.key}
-                                type={p.type === "number" ? "number" : "text"}
+                                type={p.type === "number" ? "number" : p.type}
                                 placeholder={p.placeholder}
                                 value={(form[p.key] as any) ?? ""}
-                                onChange={(e) => setField(p, p.type === "number" ? Number(e.target.value) : e.target.value)}
+                                onChange={(e) =>
+                                    setField(
+                                        p,
+                                        p.type === "number"
+                                            ? Number(e.target.value)
+                                            : e.target.value
+                                    )
+                                }
                             />
                         )}
 
