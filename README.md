@@ -51,6 +51,8 @@ Create a `.env.local` file at the root:
 ```
 POWERSHELL_EXE_PATH=C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
 POWERSHELL_SCRIPTS_DIR=C:\<FolderToRepo>\PowerShellWebIHM\scriptspowershell\
+SOCKET_IO_PORT=3210
+NEXT_PUBLIC_SOCKET_IO_PORT=3210
 ```
 
 ### 4. Run the development server
@@ -67,9 +69,6 @@ Then open [http://localhost:3000](http://localhost:3000)
 
 ```
 app/
- ├─ api/
- │   └─ run-ps/
- │       └─ route.ts     → API to run PowerShell scripts
  ├─ scripts/
  │   └─ [slug]/page.tsx  → Script execution page
  ├─ page.tsx             → Home page with scripts grid
@@ -77,7 +76,11 @@ components/
  ├─ ScriptsGrid.tsx
  ├─ ui/…                 → shadcn/ui components
 lib/
- └─ scripts.ts           → Script definitions & parameters
+ ├─ scripts.ts           → Script definitions & parameters
+ ├─ socket.ts            → To get a socket at connexion
+ws-server/
+ ├─ lib/
+ └─ server.ts            → web socket server config
 ```
 
 ---
