@@ -22,7 +22,7 @@ A lightweight and modern **web interface for running PowerShell scripts** remote
 | Layer     | Technology                                         |
 | --------- | -------------------------------------------------- |
 | Frontend  | Next.js 14 + TypeScript + TailwindCSS + shadcn/ui  |
-| Backend   | Next.js API Routes (Node runtime)                  |
+| Backend   | Next.js Web-Socket Server (socket.io)              |
 | Scripting | PowerShell (.ps1) execution via Node child_process |
 | Styling   | TailwindCSS                                        |
 | Icons     | lucide-react                                       |
