@@ -1,6 +1,6 @@
 "use client";
 
-export async function runPs(slug: string, params: Record<string, any>) {
+export async function runPs(slug: string, params: Record<string, string>) {
     const res = await fetch(`/api/run-ps`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
