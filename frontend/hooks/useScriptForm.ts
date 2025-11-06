@@ -18,21 +18,34 @@ export function useScriptForm(item?: ScriptItem) {
     useEffect(() => {
         if (!item) return;
         const next: Record<string, string | number | boolean> = {};
-        item.params?.forEach((p) => {
-            if (p.default !== undefined) next[p.key] = p.default as any;
-            else if (p.type === "checkbox") next[p.key] = false;
-            else next[p.key] = "";
-        });
+
+        if (item.params) {
+            for (const p of item.params) {
+                if (p.default !== undefined) {
+                    next[p.key] = p.default as string;
+                } else if (p.type === "checkbox") {
+                    next[p.key] = false;
+                } else {
+                    next[p.key] = "";
+                }
+            }
+        }
+
         setForm(next);
     }, [item]);
 
     const setField = useCallback((p: ScriptParam, val: any) => {
-        setForm((f) => ({ ...f, [p.key]: p.type === "number" ? Number(val) : val }));
+        setForm((f) => ({
+            ...f,
+            [p.key]: p.type === "number" ? Number(val) : val,
+        }));
     }, []);
 
     const missingRequired = useMemo(() => {
         if (!item?.params) return [] as ScriptParam[];
-        return item.params.filter((p) => p.required && (form[p.key] === undefined || form[p.key] === ""));
+        return item.params.filter(
+            (p) => p.required && (form[p.key] === undefined || form[p.key] === "")
+        );
     }, [item, form]);
 
     const runScript = useCallback(async () => {
@@ -50,13 +63,12 @@ export function useScriptForm(item?: ScriptItem) {
             } else {
                 setLogs(("Erreur : " + (data.output || "inconnue")).toString());
             }
-        } catch (e) {
+        } catch {
             setLogs("Erreur de connexion au serveur.");
         } finally {
             setLoading(false);
         }
     }, [item, form, missingRequired]);
 
-
-    return { form, setField, runScript, logs, loading };
+    return { form, setField, runScript, logs, loading, setLogs, setLoading };
 }

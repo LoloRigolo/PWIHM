@@ -1,4 +1,4 @@
-export type ParamType = "text" | "number" | "select" | "checkbox";
+export type ParamType = "text" | "number" | "password" | "select" | "checkbox";
 
 export type ScriptParam = {
     key: string;
@@ -29,6 +29,15 @@ export const SCRIPTS: ScriptItem[] = [
         description: "Affiche \"Hello {user} !\"",
         params: [
             { key: "Name", label: "Prénom", type: "text", required: true, placeholder: "Toto" },
+        ],
+    },
+    {
+        slug: "showvms",
+        title: "Show VMs",
+        description: "Listes les VMs du folder QD",
+        params: [
+            { key: "username", label: "Username VSphere", type: "text", required: true },
+            { key: "password", label: "Password VSphere", type: "password", required: true },
         ],
     },
     {

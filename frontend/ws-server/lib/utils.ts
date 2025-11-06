@@ -1,5 +1,4 @@
-export type ParamValue = string | number | boolean | null | undefined;
-export function buildArgsFromParams(params: Record<string, ParamValue> = {}) {
+export function buildArgsFromParams(params: Record<string, string> = {}) {
     const args: string[] = [];
     for (const [k, v] of Object.entries(params)) {
         if (typeof v === "boolean") {
