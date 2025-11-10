@@ -1,7 +1,6 @@
 "use client";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { ScriptParam } from "@/lib/scripts";
-import { runPs } from "@/lib/runPs";
 
 interface ScriptItem {
     slug: string;
@@ -30,8 +29,6 @@ export function useScriptForm(item?: ScriptItem) {
                 }
             }
         }
-
-        setForm(next);
     }, [item]);
 
     const setField = useCallback((p: ScriptParam, val: any) => {
@@ -48,27 +45,5 @@ export function useScriptForm(item?: ScriptItem) {
         );
     }, [item, form]);
 
-    const runScript = useCallback(async () => {
-        if (!item) return;
-        if (missingRequired.length > 0) {
-            setLogs("Merci de renseigner : " + missingRequired.map((m) => m.label).join(", "));
-            return;
-        }
-        setLoading(true);
-        setLogs("Exécution en cours…");
-        try {
-            const data = await runPs(item.slug, form);
-            if (data.success) {
-                setLogs((data.output ?? "Script exécuté avec succès !").toString());
-            } else {
-                setLogs(("Erreur : " + (data.output || "inconnue")).toString());
-            }
-        } catch {
-            setLogs("Erreur de connexion au serveur.");
-        } finally {
-            setLoading(false);
-        }
-    }, [item, form, missingRequired]);
-
-    return { form, setField, runScript, logs, loading, setLogs, setLoading };
+    return { form, setField, missingRequired, logs, loading, setLogs, setLoading };
 }

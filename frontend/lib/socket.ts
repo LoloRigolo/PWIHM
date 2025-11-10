@@ -4,8 +4,7 @@ let socket: Socket;
 
 export function getSocket() {
     if (!socket) {
-        const port = process.env.NEXT_PUBLIC_SOCKET_IO_PORT;
-        socket = io(`http://localhost:${port}`, {
+        socket = io(`http://localhost:80`, {
             transports: ["websocket", "polling"],
             withCredentials: true,
             autoConnect: true,

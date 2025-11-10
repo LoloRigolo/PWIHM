@@ -19,7 +19,7 @@ export default function ScriptRunnerPage() {
 
     const item = useMemo(() => findScriptBySlug(params.slug), [params.slug]);
 
-    const { form, setField, logs, loading, setLogs, setLoading } = useScriptForm(item);
+    const { form, setField, missingRequired, logs, loading, setLogs, setLoading } = useScriptForm(item);
     useEffect(() => {
         if (!item) {
             router.replace("/");
@@ -44,6 +44,10 @@ export default function ScriptRunnerPage() {
 
     if (!item) return null;
     const runScriptLive = () => {
+        if (missingRequired.length > 0) {
+            setLogs("Merci de renseigner : " + missingRequired.map((m) => m.label).join(", "));
+            return;
+        }
         setLogs("");
         setLoading(true);
         runProcess(item.slug, form);
