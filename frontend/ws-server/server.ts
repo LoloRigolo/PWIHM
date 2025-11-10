@@ -4,7 +4,6 @@ import { buildArgsFromParams } from "./lib/utils"
 import { spawn } from "node:child_process";
 import path from "node:path";
 
-const port = process.env.SOCKET_IO_PORT;
 const psExe =
     process.env.POWERSHELL_EXE_PATH ||
     "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe";
@@ -62,6 +61,6 @@ io.on("connection", (socket) => {
 });
 
 
-httpServer.listen(port, () => {
-    console.log(`Socket.IO server running on http://localhost:${port}`);
+httpServer.listen(80, () => {
+    console.log(`Socket.IO server running on http://localhost:80`);
 });
